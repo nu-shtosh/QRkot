@@ -1,4 +1,5 @@
 import pytest
+
 try:
     from app.services import google_api
 except (NameError, ImportError):
@@ -8,8 +9,10 @@ except (NameError, ImportError):
     )
 
 
-from tests.ast import Ast
 from conftest import APP_DIR
+
+from tests.ast import Ast
+
 FILE = APP_DIR / 'services' / 'google_api.py'
 
 

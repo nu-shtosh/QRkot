@@ -5,8 +5,10 @@ except (NameError, ImportError):
         'Не обнаружен класс `CRUDMeetingRoom`. '
         'Проверьте и поправьте: он должен быть доступен в модуле `app.crud.charity_project`.',
     )
-from tests.ast import Ast
 from conftest import APP_DIR
+
+from tests.ast import Ast
+
 FILE = APP_DIR / 'crud' / 'charity_project.py'
 
 
