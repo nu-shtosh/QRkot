@@ -1,5 +1,5 @@
 # app/crud/charity_project.py
-from typing import Optional
+from typing import Optional, List, Dict
 
 from sqlalchemy import extract, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -32,7 +32,7 @@ class CRUDCharityProject(CRUDBase):
     async def get_projects_by_completion_rate(
         self,
         session: AsyncSession,
-    ) -> list[dict[str, str]]:
+    ) -> List[Dict[str, str]]:
         result = []
         close_projects = await session.execute(
             select(CharityProject).where(
