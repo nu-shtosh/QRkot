@@ -33,29 +33,22 @@ class CRUDCharityProject(CRUDBase):
         self,
         session: AsyncSession,
     ) -> List[Dict[str, str]]:
-        result = []
         close_projects = await session.execute(
             select(CharityProject).where(
-                CharityProject.fully_invested == 1
+                CharityProject.fully_invested
             ).order_by(
+                extract('month', CharityProject.create_date) -
                 extract('month', CharityProject.close_date)
             ).order_by(
+                extract('year', CharityProject.create_date) -
                 extract('year', CharityProject.close_date)
             ).order_by(
+                extract('day', CharityProject.create_date) -
                 extract('day', CharityProject.close_date)
             )
         )
         projects = close_projects.scalars().all()
-        for project in projects:
-            time_complete = str(project.close_date - project.create_date)
-            table_fields = {
-                'name': project.name,
-                'time': time_complete,
-                'description': project.description
-            }
-            result.append(table_fields)
-
-        return result
+        return projects
 
 
 charity_project_crud = CRUDCharityProject(CharityProject)
