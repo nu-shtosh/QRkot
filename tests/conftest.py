@@ -1,12 +1,10 @@
-import contextlib
 import os
-import uuid
+import contextlib
 from datetime import datetime
 
+import uuid
 import pytest
 import pytest_asyncio
-from aiogoogle import Aiogoogle
-from aiogoogle.auth.creds import ServiceAccountCreds
 from fastapi.testclient import TestClient
 from fastapi_users import models
 from fastapi_users.password import PasswordHelper
@@ -14,9 +12,10 @@ from mixer.backend.sqlalchemy import Mixer as _mixer
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-
-from app.core.user import get_user_db, get_user_manager
 from app.schemas.user import UserCreate
+from app.core.user import get_user_db, get_user_manager
+from aiogoogle import Aiogoogle
+from aiogoogle.auth.creds import ServiceAccountCreds
 
 try:
     from app.core.db import Base, get_async_session
@@ -50,9 +49,8 @@ except (NameError, ImportError):
         'Проверьте и поправьте: он должн быть доступен в модуле `app.core`.',
     )
 
-from pathlib import Path
-
 from app.core.google_client import get_service
+from pathlib import Path
 
 BASE_DIR = Path('.').absolute()
 APP_DIR = BASE_DIR / 'app'
@@ -119,6 +117,7 @@ async def init_db():
     yield
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
+    (BASE_DIR / 'test.db').absolute().unlink()
 
 
 @pytest.fixture
@@ -181,7 +180,6 @@ def superuser_client():
     app.dependency_overrides = {}
     app.dependency_overrides[get_async_session] = override_db
     app.dependency_overrides[current_superuser] = lambda: superuser
-    # app.dependency_overrides[get_service] = lambda: _get_service
     with TestClient(app) as client:
         yield client
 

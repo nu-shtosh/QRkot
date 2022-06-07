@@ -1,5 +1,4 @@
 import types
-
 try:
     from app.core import google_client
 except (NameError, ImportError):
