@@ -32,5 +32,4 @@ async def get_report(
     await spreadsheets_update_value(spreadsheet_id,
                                     projects,
                                     wrapper_services)
-    list = None  # для тестов
-    print(list)  # для тестов
+    return projects

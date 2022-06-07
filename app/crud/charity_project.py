@@ -8,11 +8,6 @@ from app.crud.base import CRUDBase
 from app.models.charity_project import CharityProject
 
 
-class CRUDMeetingRoom:
-    def get_projects_by_completion_rate(self):
-        pass
-
-
 class CRUDCharityProject(CRUDBase):
     '''Класс CRUD к таблице charityproject.'''
 

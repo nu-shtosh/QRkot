@@ -11,10 +11,8 @@ class Settings(BaseSettings):
                         'фонда поддержки котиков QRKot')
     database_url: str = 'sqlite+aiosqlite:///./fastapi.db'
     secret: str = 'SECRET'
-
     first_superuser_email: Optional[EmailStr] = None
     first_superuser_password: Optional[str] = None
-
     type: Optional[str] = None
     project_id: Optional[str] = None
     private_key_id: Optional[str] = None
@@ -27,7 +25,6 @@ class Settings(BaseSettings):
     client_x509_cert_url: Optional[str] = None
 
     email: Optional[str] = None
-
     class Config:
         env_file = '.env'
 
