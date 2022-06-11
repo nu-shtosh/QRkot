@@ -1,8 +1,10 @@
 # ...app/api/endpoints/google_api.py
+from typing import Dict, List
+
 from aiogoogle import Aiogoogle
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from typing import List, Dict
+
 from app.core.db import get_async_session
 from app.core.google_client import get_service
 from app.core.user import current_superuser
@@ -13,6 +15,7 @@ from app.services.google_api import (set_user_permissions, spreadsheets_create,
 router = APIRouter()
 
 
+# так как питон 3.7 (нужен был для тестов) то ругается на типы list dict
 @router.get(
     '/',
     response_model=List[Dict[str, str]],

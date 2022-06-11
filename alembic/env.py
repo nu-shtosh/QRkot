@@ -11,7 +11,6 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 
 from alembic import context
 
-
 load_dotenv('.env')
 
 # this is the Alembic Config object, which provides

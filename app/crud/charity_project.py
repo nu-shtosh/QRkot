@@ -1,5 +1,5 @@
 # app/crud/charity_project.py
-from typing import Optional, List, Dict
+from typing import Dict, List, Optional
 
 from sqlalchemy import extract, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -24,6 +24,7 @@ class CRUDCharityProject(CRUDBase):
         project_name = project_name.scalars().first()
         return project_name
 
+# так как питон 3.7 (нужен был для тестов) то ругается на типы list dict
     async def get_projects_by_completion_rate(
         self,
         session: AsyncSession,
@@ -33,11 +34,9 @@ class CRUDCharityProject(CRUDBase):
                 CharityProject.fully_invested
             ).order_by(
                 extract('month', CharityProject.create_date) -
-                extract('month', CharityProject.close_date)
-            ).order_by(
+                extract('month', CharityProject.close_date),
                 extract('year', CharityProject.create_date) -
-                extract('year', CharityProject.close_date)
-            ).order_by(
+                extract('year', CharityProject.close_date),
                 extract('day', CharityProject.create_date) -
                 extract('day', CharityProject.close_date)
             )

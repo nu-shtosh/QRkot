@@ -1,8 +1,8 @@
 # app/services/google_api.py
-
 import logging
 from datetime import datetime
-from typing import List, Dict
+from typing import Dict, List
+
 from aiogoogle import Aiogoogle
 
 from app.core.config import settings
@@ -46,6 +46,7 @@ async def set_user_permissions(
         ))
 
 
+# так как питон 3.7 (нужен был для тестов) то ругается на типы list dict
 async def spreadsheets_update_value(
         spreadsheet_id: str,
         projects: List[Dict[str, str]],
@@ -61,9 +62,10 @@ async def spreadsheets_update_value(
     ]
 
     for project in projects:
+        invest_time = project.create_date - project.close_date
         new_row = [
             str(project['name']),
-            str(project['time']),
+            str(invest_time.strftime(FORMAT)),
             str(project['description'])
         ]
         table_values.append(new_row)
