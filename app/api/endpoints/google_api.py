@@ -9,16 +9,16 @@ from app.core.db import get_async_session
 from app.core.google_client import get_service
 from app.core.user import current_superuser
 from app.crud.charity_project import charity_project_crud
+from app.schemas.charity_project import CharityProjectShort
 from app.services.google_api import (set_user_permissions, spreadsheets_create,
                                      spreadsheets_update_value)
 
 router = APIRouter()
 
 
-# так как питон 3.7 (нужен был для тестов) то ругается на типы list dict
 @router.get(
     '/',
-    response_model=List[Dict[str, str]],
+    response_model=List[CharityProjectShort],
     dependencies=[Depends(current_superuser)],
 )
 async def get_report(

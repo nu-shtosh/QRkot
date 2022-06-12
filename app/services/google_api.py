@@ -6,6 +6,7 @@ from typing import Dict, List
 from aiogoogle import Aiogoogle
 
 from app.core.config import settings
+from app.schemas.charity_project import CharityProjectShort
 
 FORMAT = "%Y/%m/%d %H:%M:%S"
 
@@ -49,7 +50,7 @@ async def set_user_permissions(
 # так как питон 3.7 (нужен был для тестов) то ругается на типы list dict
 async def spreadsheets_update_value(
         spreadsheet_id: str,
-        projects: List[Dict[str, str]],
+        projects: List[CharityProjectShort],
         wrapper_services: Aiogoogle
 ) -> None:
     now_date_time = datetime.now().strftime(FORMAT)

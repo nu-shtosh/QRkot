@@ -83,3 +83,30 @@ class CharityProjectDB(CharityProjectCreate):
 
     class Config:
         orm_mode = True
+
+
+class CharityProjectShort(CharityProjectCreate):
+    '''Краткая схема для ответа.'''
+    name: str = Field(
+        ...,
+        min_length=1,
+        max_length=100,
+        title='Название проекта',
+        example='Название проекта',
+    )
+    description: str = Field(
+        ...,
+        min_length=1,
+        title='Описание',
+        example='Описание проекта',
+    )
+    create_date: datetime = Field(
+        ...,
+        title='Дата создания проекта',
+        example=CREATE_DATE
+    )
+    close_date: datetime = Field(
+        None,
+        title='Дата закрытия проекта',
+        example=CLOSE_DATE
+    )

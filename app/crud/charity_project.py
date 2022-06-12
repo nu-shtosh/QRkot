@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crud.base import CRUDBase
 from app.models.charity_project import CharityProject
+from app.schemas.charity_project import CharityProjectShort
 
 
 class CRUDCharityProject(CRUDBase):
@@ -24,11 +25,10 @@ class CRUDCharityProject(CRUDBase):
         project_name = project_name.scalars().first()
         return project_name
 
-# так как питон 3.7 (нужен был для тестов) то ругается на типы list dict
     async def get_projects_by_completion_rate(
         self,
         session: AsyncSession,
-    ) -> List[Dict[str, str]]:
+    ) -> List[CharityProjectShort]:
         close_projects = await session.execute(
             select(CharityProject).where(
                 CharityProject.fully_invested
