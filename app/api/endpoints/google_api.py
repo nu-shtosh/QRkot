@@ -1,5 +1,5 @@
 # ...app/api/endpoints/google_api.py
-from typing import Dict, List
+from typing import List
 
 from aiogoogle import Aiogoogle
 from fastapi import APIRouter, Depends

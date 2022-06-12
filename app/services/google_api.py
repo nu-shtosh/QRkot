@@ -1,7 +1,7 @@
 # app/services/google_api.py
 import logging
 from datetime import datetime
-from typing import Dict, List
+from typing import List
 
 from aiogoogle import Aiogoogle
 
